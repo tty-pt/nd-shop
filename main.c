@@ -147,8 +147,13 @@ do_sell(int fd, int argc __attribute__((unused)), char *argv[])
 	nd_writef(player_ref, "You sold %s for %dP.\n", item.name, cost);
 }
 
-struct icon on_icon(struct icon i, unsigned ref, unsigned type) {
+struct icon on_icon(unsigned ref, unsigned type,
+		unsigned player_ref __attribute__((unused)))
+{
 	OBJ obj;
+
+	struct icon i;
+	sic_last(&i);
 
 	if (!(type == TYPE_ENTITY && (ent_get(ref).flags & EF_SHOP)))
 		return i;
