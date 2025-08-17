@@ -5,16 +5,16 @@ unsigned act_shop;
 static inline unsigned
 vendor_find(unsigned where_ref)
 {
-	nd_cur_t c = nd_iter(HD_CONTENTS, &where_ref);
+	unsigned c = nd_iter(HD_CONTENTS, &where_ref);
 	unsigned tmp_ref;
 
-	while (nd_next(&where_ref, &tmp_ref, &c)) {
+	while (nd_next(&where_ref, &tmp_ref, c)) {
 		OBJ tmp;
 		nd_get(HD_OBJ, &tmp, &tmp_ref);
 		if (tmp.type != TYPE_ENTITY)
 			continue;
 		if (ent_get(tmp_ref).flags & EF_SHOP) {
-			nd_fin(&c);
+			nd_fin(c);
 			return tmp_ref;
 		}
 	}
@@ -41,8 +41,8 @@ do_shop(int fd, int argc __attribute__((unused)), char *argv[] __attribute__((un
 	nd_writef(player_ref, "%s shows you what's for sale.\n", npc.name);
 	look_at(player_ref, npc_ref);
 
-	nd_cur_t c = nd_iter(HD_OBJ, &npc_ref);
-	while (nd_next(&npc_ref, &tmp_ref, &c)) {
+	unsigned c = nd_iter(HD_OBJ, &npc_ref);
+	while (nd_next(&npc_ref, &tmp_ref, c)) {
 		OBJ tmp;
 		nd_get(HD_OBJ, &tmp, &tmp_ref);
 		if (tmp.flags & OF_INF)
