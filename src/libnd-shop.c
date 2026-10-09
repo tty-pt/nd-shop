@@ -27,7 +27,7 @@
 
 #include <nd/xy.h>
 
-#include <ttypt/nd-core.h>
+#include <nd/core.h>
 
 unsigned act_shop;
 
