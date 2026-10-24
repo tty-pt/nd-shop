@@ -68,6 +68,14 @@ path, and broke silently for everyone else. `<nd/core.h>` resolves from
 `-I$(PREFIX)/include`, or from the checkout beside this repo, which is what makes
 the dependency explicit.
 
+## In-Game Commands (`man-src/`)
+
+| Command | Section | Description |
+|---------|---------|-------------|
+| `shop` | 10 | Browse goods, equipment, and consumables offered by a merchant |
+| `buy` | 10 | Purchase an item from the merchant using currency |
+| `sell` | 10 | Sell surplus inventory items to the merchant |
+
 ## Using it
 
 `xy_install` registers the three commands and then installs the icon decorator:
