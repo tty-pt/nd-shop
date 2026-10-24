@@ -26,6 +26,7 @@
 #include <ttypt/xy-mod.h>
 
 #include <nd/xy.h>
+#include <stdlib.h>
 
 #include <nd/core.h>
 
@@ -72,15 +73,17 @@ do_shop(int fd, int argc __attribute__((unused)), char *argv[] __attribute__((un
 	look_at(player_ref, npc_ref);
 
 	unsigned c = nd_iter(HD_OBJ, &npc_ref);
+	const char *cur = getenv("AXIL_ND_CURRENCY");
+	const char *csym = (cur && *cur) ? cur : "P";
 	while (nd_next(&npc_ref, &tmp_ref, c)) {
 		OBJ tmp;
 		nd_get(HD_OBJ, &tmp, &tmp_ref);
 		if (tmp.flags & OF_INF)
-			nd_printf(player_ref, "%-13s %5dP (Inf)",
-					tmp.name, tmp.value);
+			nd_printf(player_ref, "%-13s %5d%s (Inf)",
+					tmp.name, tmp.value, csym);
 		else
-			nd_printf(player_ref, "%-13s %5dP",
-					tmp.name, tmp.value);
+			nd_printf(player_ref, "%-13s %5d%s",
+					tmp.name, tmp.value, csym);
 	}
 	nd_fin(c);
 }
